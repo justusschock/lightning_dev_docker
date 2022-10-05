@@ -59,7 +59,7 @@ jobs:
         with:
           push: ${{ github.event_name != 'pull_request' }}
           context: .
-          file: dockers/Dockerfile
+          file: Dockerfile.cuda
           platforms: linux/amd64,linux/arm64
           build-args: |
             CUDA_VERSION=${{ matrix.cuda }}

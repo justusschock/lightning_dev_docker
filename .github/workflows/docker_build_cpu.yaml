@@ -48,7 +48,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           tags: |
-            type=raw,value=latest-${{ matrix.accelerator }}
+            type=raw,value=py${{ matrix.python }}-torch${{ matrix.pytorch }}-cpu
 
       - name: Build
         # publish master/release

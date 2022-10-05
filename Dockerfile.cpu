@@ -101,5 +101,5 @@ RUN \
     python -c "import sys; ver = sys.version_info ; assert f'{ver.major}.{ver.minor}' == '$PYTHON_VERSION', ver" && \
     python -c "import torch; assert torch.__version__.startswith('$PYTORCH_VERSION'), torch.__version__" && \
     python lightning/requirements/pytorch/check-avail-extras.py && \
-    python lightning/requirements/pytorch/check-avail-strategies.py && \
+    python -c "import horovod.torch; import deepspeed; import fairscale" && \
     rm -rf lightning/

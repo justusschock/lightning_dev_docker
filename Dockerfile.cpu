@@ -33,6 +33,7 @@ ENV \
     MAKEFLAGS="-j2"
 
 RUN \
+    apt-get update -qq --fix-missing && \
     apt-get install -y --no-install-recommends --allow-downgrades --allow-change-held-packages \
         build-essential \
         pkg-config \

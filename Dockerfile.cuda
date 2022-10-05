@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Adapted from Lightning-AI/lightning/docker/base-cuda/Dockerfile
+
 
 ARG UBUNTU_VERSION=20.04
 ARG CUDA_VERSION=11.3.1
@@ -86,7 +88,7 @@ RUN \
     # set particular PyTorch version
     python lightning/requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/base.txt ${PYTORCH_VERSION} && \
     python lightning/requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/extra.txt ${PYTORCH_VERSION} && \
-    python ./requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/examples.txt ${PYTORCH_VERSION} && \
+    python lightning/requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/examples.txt ${PYTORCH_VERSION} && \
     # Install all requirements \
     pip install -r lightning/requirements/pytorch/devel.txt --no-cache-dir --find-links https://download.pytorch.org/whl/cu${CUDA_VERSION_MM}/torch_stable.html && \
     pip install -r lightning/requirements/lite/devel.txt && \
@@ -108,7 +110,7 @@ RUN \
     export HOROVOD_BUILD_CUDA_CC_LIST=${HOROVOD_BUILD_CUDA_CC_LIST//"."/""} && \
     echo $HOROVOD_BUILD_CUDA_CC_LIST && \
     cmake --version && \
-    pip install --no-cache-dir -r ./requirements/pytorch/strategies.txt && \
+    pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt && \
     horovodrun --check-build
 
 RUN \

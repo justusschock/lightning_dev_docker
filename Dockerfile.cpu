@@ -15,7 +15,6 @@
 # Adapted from Lightning-AI/lightning/docker/base-cuda/Dockerfile
 
 ARG UBUNTU_VERSION=20.04
-ARG CUDA_VERSION=11.3.1
 
 FROM ubuntu:${UBUNTU_VERSION}
 

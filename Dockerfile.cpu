@@ -46,8 +46,7 @@ RUN \
         software-properties-common \
         libopenmpi-dev \
         openmpi-bin \
-        ssh \
-       
+        ssh && \
 # Install python
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install -y \

@@ -16,6 +16,7 @@ on:
 jobs:
   build-docker:
     runs-on: ubuntu-20.04
+    timeout-minutes: 180
 
     strategy:
       fail-fast: false
@@ -72,4 +73,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-        timeout-minutes: 50

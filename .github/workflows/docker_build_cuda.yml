@@ -22,10 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {python: "3.9", pytorch: "1.9", cuda: "11.1.1"}
           - {python: "3.9", pytorch: "1.10", cuda: "11.3.1"}
-          - {python: "3.9", pytorch: "1.11", cuda: "11.3.1"}
-          - {python: "3.9", pytorch: "1.12", cuda: "11.6.1"}
+          - {python: "3.10", pytorch: "1.11", cuda: "11.3.1"}
+          - {python: "3.10", pytorch: "1.12", cuda: "11.6.1"}
 
     steps:
       #

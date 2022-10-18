@@ -58,6 +58,7 @@ RUN \
         ssh \
         libnccl2=$TO_INSTALL_NCCL \
         libnccl-dev=$TO_INSTALL_NCCL && \
+        mpich && \
 # Install python
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install -y \
@@ -92,6 +93,8 @@ RUN \
     # Install all requirements \
     pip install -r lightning/requirements/pytorch/devel.txt --no-cache-dir --find-links https://download.pytorch.org/whl/cu${CUDA_VERSION_MM}/torch_stable.html && \
     pip install -r lightning/requirements/lite/devel.txt && \
+    pip install -r lightning/requirements/app/devel.txt && \
+    pip install mpi4py && \
     pip install -r lightning/requirements.txt
 
 ENV \

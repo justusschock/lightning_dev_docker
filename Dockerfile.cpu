@@ -92,7 +92,7 @@ ENV \
 
 RUN \
     cmake --version && \
-    pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt && \
+    pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt --find-links https://release.colossalai.org && \
     horovodrun --check-build
 
 RUN \

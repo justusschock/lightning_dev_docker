@@ -79,6 +79,7 @@ RUN \
     # Install all requirements \
     pip install -r lightning/requirements/pytorch/devel.txt --no-cache-dir --find-links https://download.pytorch.org/whl/cpu/torch_stable.html && \
     pip install -r lightning/requirements/lite/devel.txt && \
+    pip install -r lightning/requirements/app/devel.txt && \
     pip install -r lightning/requirements.txt
 
 ENV \

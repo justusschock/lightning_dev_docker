@@ -105,8 +105,10 @@ ENV \
     HOROVOD_WITHOUT_MXNET=1 \
     HOROVOD_WITH_GLOO=1 \
     HOROVOD_WITH_MPI=1
+
 RUN \
-    python -c "import torch; torch_version = '.'.join(torch.__version__.split('+')[0].split('.')[:2]) ; cuda_version_mm = float(''.join(map(str, torch.version.cuda))) ; cuda_version = [ver for ver in [11.3, 11.1] if cuda_version_mm >= ver][0] ; fname = 'lightning/requirements/pytorch/strategies.txt' ; import os ; lines = [line for line in open(fname).readlines() if 'colossalai' not in line] + [line + f'+torch{torch_version}cu{cuda_version}' for line in open(fname).readlines() if 'colossalai' in line]; open(fname, 'w').writelines(lines)"
+    python -c "import torch; torch_version = '.'.join(torch.__version__.split('+')[0].split('.')[:2]) ; cuda_version_mm = float(''.join(map(str, torch.version.cuda))) ; cuda_version = [ver for ver in [11.3, 11.1] if cuda_version_mm >= ver][0] ; fname = 'lightning/requirements/pytorch/strategies.txt' ; import os ; lines_old = open(fname).readlines() ; lines = [line if 'colossalai' not in line else line.strip().replace('\n', '') + f'+torch{torch_version}cu{cuda_version}\n' for line in lines_old]; print(lines); open(fname, 'w').writelines(lines)" && cat lightning/requirements/pytorch/strategies.txt
+
 RUN \
     # CUDA 10.2 doesn't support ampere architecture (8.0).
     if [[ "$CUDA_VERSION" < "11.0" ]]; then export TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST//";8.0"/}; echo $TORCH_CUDA_ARCH_LIST; fi && \
@@ -114,7 +116,7 @@ RUN \
     export HOROVOD_BUILD_CUDA_CC_LIST=${HOROVOD_BUILD_CUDA_CC_LIST//"."/""} && \
     echo $HOROVOD_BUILD_CUDA_CC_LIST && \
     cmake --version && \
-    pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt -- find-links https://release.colossalai.org && \
+    pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt --find-links https://release.colossalai.org && \
     horovodrun --check-build
 
 RUN \

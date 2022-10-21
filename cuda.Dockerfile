@@ -19,7 +19,7 @@ ARG CUDA_VERSION=11.3.1
 
 FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu${UBUNTU_VERSION}
 
-ARG PYTHON_VERSION=3.9
+ARG PYTHON_VERSION=3.10
 ARG PYTORCH_VERSION=1.12
 
 SHELL ["/bin/bash", "-c"]
@@ -118,16 +118,6 @@ RUN \
     cmake --version && \
     pip install --no-cache-dir -r lightning/requirements/pytorch/strategies.txt --find-links https://release.colossalai.org && \
     horovodrun --check-build
-
-RUN \
-    CUDA_VERSION_MAJOR=$(python -c "import torch; print(torch.version.cuda.split('.')[0])") && \
-    py_ver=$(python -c "print(int('$PYTHON_VERSION'.split('.') >= '3.9'.split('.')))") && \
-    # install DALI, needed for examples
-    # todo: waiting for 1.4 - https://github.com/NVIDIA/DALI/issues/3144#issuecomment-877386691
-    if [ $py_ver -eq "0" ]; then \
-        pip install --extra-index-url https://developer.download.nvidia.com/compute/redist "nvidia-dali-cuda${CUDA_VERSION_MAJOR}0>1.0" ; \
-        python -c 'from nvidia.dali.pipeline import Pipeline' ; \
-    fi
 
 RUN \
     # install Bagua

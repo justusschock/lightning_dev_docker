@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# Adapted from Lightning-AI/lightning/docker/base-cuda/Dockerfile
+# Adapted from Lightning-AI/lightning/docker/base-cuda/cuda.Dockerfile
 
 
 ARG UBUNTU_VERSION=20.04
@@ -128,13 +128,6 @@ RUN \
         pip install --extra-index-url https://developer.download.nvidia.com/compute/redist "nvidia-dali-cuda${CUDA_VERSION_MAJOR}0>1.0" ; \
         python -c 'from nvidia.dali.pipeline import Pipeline' ; \
     fi
-
-RUN \
-    # CUDA 10.2 doesn't support ampere architecture (8.0).
-    if [[ "$CUDA_VERSION" < "11.0" ]]; then export TORCH_CUDA_ARCH_LIST=${TORCH_CUDA_ARCH_LIST//";8.0"/}; echo $TORCH_CUDA_ARCH_LIST; fi && \
-    # install NVIDIA apex
-    pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" https://github.com/NVIDIA/apex/archive/refs/heads/master.zip && \
-    python -c "from apex import amp"
 
 RUN \
     # install Bagua

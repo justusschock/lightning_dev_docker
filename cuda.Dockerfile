@@ -91,6 +91,7 @@ RUN \
     python lightning/requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/extra.txt ${PYTORCH_VERSION} && \
     python lightning/requirements/pytorch/adjust-versions.py lightning/requirements/pytorch/examples.txt ${PYTORCH_VERSION} && \
     # Install all requirements \
+    pip install 'jsonargparse[signatures]' && \
     pip install -r lightning/requirements/pytorch/devel.txt --no-cache-dir --find-links https://download.pytorch.org/whl/cu${CUDA_VERSION_MM}/torch_stable.html && \
     pip install -r lightning/requirements/lite/devel.txt && \
     pip install -r lightning/requirements/app/devel.txt && \

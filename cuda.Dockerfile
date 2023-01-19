@@ -14,13 +14,13 @@
 # Adapted from Lightning-AI/lightning/docker/base-cuda/cuda.Dockerfile
 
 
-ARG UBUNTU_VERSION=20.04
+ARG UBUNTU_VERSION=22.04
 ARG CUDA_VERSION=11.3.1
 
 FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu${UBUNTU_VERSION}
 
 ARG PYTHON_VERSION=3.10
-ARG PYTORCH_VERSION=1.12
+ARG PYTORCH_VERSION=1.13.1
 
 SHELL ["/bin/bash", "-c"]
 # https://techoverflow.net/2019/05/18/how-to-fix-configuring-tzdata-interactive-input-when-building-docker-images/

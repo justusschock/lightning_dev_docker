@@ -14,7 +14,7 @@
 # limitations under the License.
 # Adapted from Lightning-AI/lightning/docker/base-cuda/Dockerfile
 
-ARG UBUNTU_VERSION=20.04
+ARG UBUNTU_VERSION=22.04
 
 FROM ubuntu:${UBUNTU_VERSION}
 
